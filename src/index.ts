@@ -1,12 +1,15 @@
 import express from "express";
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
+import dotenv from "dotenv";
+import signup from "./signup";
+import connecttoDB from "./connectToDB";
+dotenv.config();
 
 const app = express();
+connecttoDB();
 
 app.use(express.json());
 
-app.post("/api/v1/signup", (req, res) => {});
+app.post("/api/v1/signup", signup);
 
 app.post("/api/v1/signin", (req, res) => {});
 
