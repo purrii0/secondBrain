@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import { configDotenv } from "dotenv";
+configDotenv();
 
-const mongoUri = process.env.MONGO_URI as string;
+const mongoUri: string = process.env.MONGO_URI || "";
 
 if (!mongoUri) {
   throw new Error("MONGO_URI is not defined");

@@ -4,9 +4,15 @@ import { Request, Response } from "express";
 import { UserModel } from "./db";
 import bcrypt from "bcryptjs";
 
-const signup = async (req: Request, res: Response): Promise<Response> => {
+const signup: Function = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
   try {
-    const parsedData = registrationSchema.parse(req.body);
+    const parsedData: {
+      username: string;
+      password: string;
+    } = registrationSchema.parse(req.body);
     const { username, password } = parsedData;
 
     const userAlreadyExists = await UserModel.findOne({ username });
