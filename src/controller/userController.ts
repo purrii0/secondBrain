@@ -1,6 +1,5 @@
 
 import registrationSchema from "../lib/zod";
-import { ZodError } from "zod";
 import { Request, Response } from "express";
 import { UserModel } from "../db/db";
 import bcrypt from "bcryptjs";
