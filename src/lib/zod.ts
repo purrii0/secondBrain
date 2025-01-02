@@ -1,4 +1,5 @@
-import z, { string } from "zod";
+// write types here then import them in controller:
+import z from "zod";
 
 const registrationSchema = z.object({
   username: z.string().min(3).max(10),

@@ -1,16 +1,9 @@
 import mongoose from "mongoose";
-import { configDotenv } from "dotenv";
-configDotenv();
-
-const mongoUri: string = process.env.MONGO_URI || "";
-
-if (!mongoUri) {
-  throw new Error("MONGO_URI is not defined");
-}
+import { ENV } from "../config";
 
 const connecttoDB = async (): Promise<void> => {
   try {
-    await mongoose.connect(mongoUri);
+    await mongoose.connect(ENV.MONGO_URL);
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
