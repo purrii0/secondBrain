@@ -1,13 +1,13 @@
 import registrationSchema from "./zodvalidation";
 import { ZodError } from "zod";
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { UserModel } from "./db";
 import bcrypt from "bcryptjs";
 
-const signup: Function = async (
+const signup: RequestHandler = async (
   req: Request,
   res: Response
-): Promise<Response> => {
+): Promise<void> => {
   try {
     const parsedData: {
       username: string;
@@ -18,7 +18,8 @@ const signup: Function = async (
     const userAlreadyExists = await UserModel.findOne({ username });
 
     if (userAlreadyExists) {
-      return res.status(403).json({ message: "Username Already Exists" });
+      res.status(403).json({ message: "Username Already Exists" });
+      return;
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -29,17 +30,20 @@ const signup: Function = async (
       password: hashPassword,
     });
 
-    return res
+    res
       .status(200)
       .json({ message: "User Signed Up Sucessfully", data: { username } });
+    return;
   } catch (error) {
     if (error instanceof ZodError) {
-      return res
+      res
         .status(411)
         .json({ message: "Validation failed", errors: error.errors });
+      return;
     }
     console.error("Unexpected error during sign-up:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
+    return;
   }
 };
 

@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import signup from "./signup";
 import connecttoDB from "./connectToDB";
-import { sign } from "crypto";
 dotenv.config();
 
 const app = express();
@@ -10,8 +9,7 @@ connecttoDB();
 
 app.use(express.json());
 
-console.log("signup:", signup());
-app.post("/api/v1/signup", signup());
+app.post("/api/v1/signup", signup);
 
 app.post("/api/v1/signin", (req, res) => {});
 
