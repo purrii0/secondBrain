@@ -11,4 +11,11 @@ const loginSchema = z.object({
   password: z.string().min(8),
 });
 
-export { registrationSchema, loginSchema };
+const contentSchema = z.object({
+  type: z.enum(["document", "tweet", "youtube", "link"]),
+  link: z.string().url(),
+  title: z.string(),
+  tags: z.array(z.string()),
+});
+
+export { registrationSchema, loginSchema, contentSchema };
